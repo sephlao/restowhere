@@ -1,0 +1,80 @@
+/* css reset */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+
+/* set css variables */
+:root {
+  --typography: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+
+  --color-primary: #040406;
+  --color-secondary: #575a89;
+  --bg-primary: #f9f9f9;
+  --bg-secondary: #6c63ff;
+}
+
+body {
+  font-family: var(--typography);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-primary);
+  color: var(--color-primary);
+}
+
+h1 {
+  font-size: 2rem;
+  padding: 0.25em;
+}
+
+h2 {
+  font-size: 1.8rem;
+}
+
+p {
+  font-size: 1rem;
+  padding: 0.125em;
+}
+
+.container {
+  max-width: 550px;
+  height: 100vh;
+  margin: 0 auto;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.content-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content-img > img {
+  width: 100%;
+  max-width: 250px;
+}
+
+.content-msg {
+  text-align: center;
+}
+
+.content-action > button {
+  padding: 0.85em;
+  margin: 0.75em 0;
+  width: 100%;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.btn {
+  padding: 0.5rem;
+  font-size: 1em;
+  border: none;
+  border-radius: 0.25em;
+}
+
+.btn-primary {
+  background-color: var(--bg-secondary);
+  color: var(--color-primary);
+}
