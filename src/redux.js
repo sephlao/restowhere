@@ -6,14 +6,14 @@ import { createStore } from "redux";
 
 // actions
 export const actions = {
-  ADD: "ADD_RESTAURANTS",
+  ADD_RESTAURANTS: "ADD_RESTAURANTS",
 };
 
 // action type (for dispatch)
 export const actionType = {
   setRestaurants(data) {
     return {
-      type: actions.ADD,
+      type: actions.ADD_RESTAURANTS,
       payload: {
         restaurants: data,
       },
@@ -22,11 +22,10 @@ export const actionType = {
 };
 
 // reducer
-export function reducer(state = [], action) {
-  console.log(action);
+export function reducer(state = {}, action) {
   switch (action.type) {
-    case actions.ADD:
-      return [...state, ...action.payload.restaurants];
+    case actions.ADD_RESTAURANTS:
+      return { ...state, restaurants: action.payload.restaurants };
 
     // todo add more cases
     default:

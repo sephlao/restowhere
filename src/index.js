@@ -5,13 +5,17 @@ import "./assets/main.css";
 import Home from "./components/pages/Home";
 import Restaurant from "./components/pages/Restaurant";
 import * as serviceWorker from "./serviceWorker";
+import { Provider } from "react-redux";
+import { store } from "./redux";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <Route path="/" exact component={Home} />
-      <Route path="/restaurants" component={Restaurant} />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Route path="/" exact component={Home} />
+        <Route path="/restaurants" component={Restaurant} />
+      </Router>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

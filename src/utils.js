@@ -1,5 +1,5 @@
 // custom hook utils
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 // fetch data from api
 export function useFetchWithAbort(url) {

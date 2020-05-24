@@ -1,6 +1,6 @@
 import React from "react";
 import location_img from "../../assets/images/my_location.svg";
-import LocationContainer from "../LocationContainer";
+import UseLocationContainer from "../UseLocation";
 import { Link } from "react-router-dom";
 
 export default function Home() {
@@ -18,7 +18,7 @@ export default function Home() {
           </p>
         </div>
         <div className="content-action">
-          <LocationContainer />
+          <UseLocationContainer />
           <Link to="/restaurants" className="skip">
             Skip >
           </Link>
