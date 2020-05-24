@@ -5,23 +5,25 @@ import { useState, useEffect, useRef } from "react";
 export function useFetchWithAbort(url) {
   const [data, setData] = useState();
   const [status, setStatus] = useState("idle"); // idle | pending | resolved | rejected
-  const controllerRef = useRef(new AbortController());
 
   useEffect(() => {
     if (!Boolean(url)) return;
     setStatus("pending");
-    const controller = controllerRef.current;
+    const controller = new AbortController();
     fetch(url, { signal: controller.signal })
       .then((res) => res.json())
-      .then((payload) => {
-        setData(payload);
-        setStatus("resolved");
-      })
-      .catch((error) => {
-        setStatus("rejected");
-        //TODO error handling
-        throw error;
-      });
+      .then(
+        (payload) => {
+          setData(payload);
+          setStatus("resolved");
+        },
+        (error) => {
+          setStatus("rejected");
+          console.log(error);
+          //TODO error handling
+          // throw error;
+        }
+      );
 
     return () => {
       controller.abort();
