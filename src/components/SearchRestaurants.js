@@ -3,6 +3,8 @@ import { useFetchWithAbort } from "../utils";
 import { useDispatch } from "react-redux";
 import { actionType } from "../redux";
 
+import StatusBox from "./StatusBox";
+
 /**
  * search for restaurants based on city value
  */
@@ -33,17 +35,28 @@ export default function SearchRestaurants({ initialValue }) {
     setCity(search);
   };
 
+  //TODO form component
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="search">City:</label>
-      <input defaultValue={initialValue} id="search" ref={inputElRef} />
+    <header className="container header">
+      <form className="search-form" onSubmit={handleSubmit}>
+        {/* <label htmlFor="search">City</label> */}
+        <input
+          type="text"
+          name="search"
+          defaultValue={initialValue}
+          ref={inputElRef}
+          aria-label="city"
+          placeholder="Enter a city"
+        />
+        <button type="submit" className="btn btn-primary">
+          Search
+        </button>
+      </form>
 
-      {status === "pending" && <p className="status-text">Please wait...</p>}
+      {status === "pending" && <StatusBox statusText="Please wait..." />}
       {status === "rejected" && (
-        <p className="status-text">
-          Something went wrong, please try again later.
-        </p>
+        <StatusBox statusText="Something went wrong, please try again later." />
       )}
-    </form>
+    </header>
   );
 }
