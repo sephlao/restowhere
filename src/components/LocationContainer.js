@@ -1,31 +1,25 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useHistory } from "react-router-dom";
-import { useFecthWithAbort } from "../utils";
+import { useCityLocation } from "../utils";
 import Location from "./Location";
 
 export default function LocationContainer() {
   const [showButton, setShowButton] = useState(true);
-  const [location, setLocation] = useState();
   const [status, setStatus] = useState();
-  const [url, setUrl] = useState("");
+  const [coordinates, setCoordinates] = useState("");
   const history = useHistory();
 
-  // fetch location data
-  const { payload, loading, error } = useFecthWithAbort(url);
+  //returns city from coordinates
+  const city = useCityLocation(coordinates);
 
   useEffect(() => {
-    if (payload) setLocation(payload.locality);
-    if (!loading) setStatus("");
-    if (error) setStatus("Something went wrong! Please try again.");
-
-    if (!error && !loading && location) {
-      history.push(`/restaurants?search=${location}`);
+    if (city) {
+      history.push(`/restaurants?search=${city}`);
     }
-  }, [payload, location, loading, error, history]);
+  }, [city, history]);
 
-  const successCb = useCallback(({ coords: { latitude, longitude } }) => {
-    const domain = "https://api.bigdatacloud.net/data/reverse-geocode-client";
-    setUrl(`${domain}?latitude=${latitude}&longitude=${longitude}`);
+  const successCb = useCallback(({ coords }) => {
+    setCoordinates(coords);
   }, []);
 
   const errorCb = useCallback(() => {

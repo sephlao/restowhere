@@ -1,35 +1,57 @@
 // custom hook utils
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
-export function useFecthWithAbort(url) {
-  const [payload, setPayload] = useState();
-  const [error, setError] = useState();
-  const [loading, setLoading] = useState(true);
-  const isMountedRef = useRef(true);
+// fetch data from api
+export function useFetchWithAbort(url) {
+  const [data, setData] = useState();
+  const [status, setStatus] = useState("idle"); // idle | pending | resolved | rejected
+  const controllerRef = useRef(new AbortController());
+
   useEffect(() => {
-    if (!url) return;
-    const controller = new AbortController();
+    if (!Boolean(url)) return;
+    setStatus("pending");
+    const controller = controllerRef.current;
     fetch(url, { signal: controller.signal })
       .then((res) => res.json())
-      .then(
-        (result) => {
-          if (isMountedRef.current) {
-            setPayload(result);
-            setLoading(false);
-          }
-        },
-        (error) => {
-          if (isMountedRef.current) {
-            setError(error);
-            setLoading(false);
-          }
-        }
-      );
+      .then((payload) => {
+        setData(payload);
+        setStatus("resolved");
+      })
+      .catch((error) => {
+        setStatus("rejected");
+        //TODO error handling
+        throw error;
+      });
 
     return () => {
-      isMountedRef.current = false;
       controller.abort();
     };
   }, [url]);
-  return { payload, error, loading };
+
+  return { data, status };
+}
+
+// return city from coodinates using 3rd party api
+export function useCityLocation(coordinates) {
+  //useCityLocation
+  const [city, setCity] = useState("");
+  const [url, setUrl] = useState("");
+  const { data, status } = useFetchWithAbort(url);
+  useEffect(() => {
+    if (!coordinates) return; //exit
+    const { latitude, longitude } = coordinates;
+    setUrl(
+      `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}`
+    );
+
+    if (status === "resolved") {
+      setCity(data.locality);
+    }
+
+    // return () => {
+    //   console.log("perform cleanup on useCityLocation");
+    // };
+  }, [coordinates, data, status]);
+
+  return city;
 }
