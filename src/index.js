@@ -2,15 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./assets/main.css";
-import Home from "./components/Home";
-import RestaurantList from "./components/RestaurantList";
+import Home from "./components/pages/Home";
+import Restaurant from "./components/pages/Restaurant";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <Route path="/" exact component={Home} />
-      <Route path="/:city" component={RestaurantList} />
+      <Route path="/restaurants" component={Restaurant} />
     </Router>
   </React.StrictMode>,
   document.getElementById("root")
