@@ -1,5 +1,8 @@
 import React from "react";
 
+/**
+ * stateless component; shows status text
+ */
 export default function StatusBox({ statusText }) {
   return (
     <div className="status-box">

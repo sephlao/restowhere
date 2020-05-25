@@ -1,5 +1,9 @@
 import React from "react";
 
+/**
+ * stateless; accepts data object for restaurant info
+ * returns template with all relevant data
+ */
 export default function RestaurantItem({ data }) {
   const { name, address, city, image_url, price, reserve_url } = data;
   return (

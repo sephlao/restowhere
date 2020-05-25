@@ -1,7 +1,10 @@
 import React from "react";
 import RestaurantItem from "./RestaurantItem";
 
-//restaurant list
+/**
+ * stateless component; accepts data as props
+ * loops through data to display restaurant info
+ */
 export default function RestaurantList({ data }) {
   return (
     <ul className="restaurant-list">
