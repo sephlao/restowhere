@@ -34,17 +34,15 @@ export default function SearchRestaurants({ initialValue }) {
     // set restaurants from city
     if (data && status === "resolved")
       dispatch(actionType.setRestaurants(data.restaurants));
-
-    return () => {
-      setCity("");
-    };
   }, [city, data, status, dispatch, initialValue]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const search = inputElRef.current.value;
-    setCity(search);
-    history.push(`/restaurants?search=${search}`);
+    if (search) {
+      setCity(search);
+      history.push(`/restaurants?search=${search}`);
+    }
   };
 
   //TODO form component
@@ -55,7 +53,7 @@ export default function SearchRestaurants({ initialValue }) {
         <input
           type="text"
           name="search"
-          defaultValue={initialValue}
+          defaultValue={city}
           ref={inputElRef}
           aria-label="city"
           placeholder="Enter a city"
