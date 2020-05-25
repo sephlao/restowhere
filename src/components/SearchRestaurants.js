@@ -9,6 +9,8 @@ import { useHistory } from "react-router-dom";
 
 /**
  * search for restaurants based on city value
+ * accepts string as city as initial value
+ * queries api for restaurants in the city
  */
 
 export default function SearchRestaurants({ initialValue }) {
@@ -29,10 +31,9 @@ export default function SearchRestaurants({ initialValue }) {
     if (city)
       setUrl(`http://opentable.herokuapp.com/api/restaurants?city=${city}`);
 
-    if (data && status === "resolved") {
-      // set restaurants from city
+    // set restaurants from city
+    if (data && status === "resolved")
       dispatch(actionType.setRestaurants(data.restaurants));
-    }
 
     return () => {
       setCity("");
