@@ -46,7 +46,9 @@ export default function Restaurant() {
     setRefine(target.checked);
   };
 
-  //could use suspense in the future
+  // could use suspense in the future
+  // renders search bar on header,
+  // main component for restaurant page
   return (
     <>
       <SearchRestaurants initialValue={search} />

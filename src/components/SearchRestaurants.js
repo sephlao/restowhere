@@ -29,7 +29,7 @@ export default function SearchRestaurants({ initialValue }) {
 
     // setUrl will trigger fetch; make sure city is not empty
     if (city)
-      setUrl(`http://opentable.herokuapp.com/api/restaurants?city=${city}`);
+      setUrl(`https://opentable.herokuapp.com/api/restaurants?city=${city}`);
 
     // set restaurants from city
     if (data && status === "resolved")
